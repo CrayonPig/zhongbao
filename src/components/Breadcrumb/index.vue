@@ -34,8 +34,8 @@ export default {
         }
       })
       const first = matched[0]
-      if (first && first.name !== 'dashboard') {
-        matched = [{ path: '/dashboard', meta: { title: 'Dashboard' }}].concat(matched)
+      if (first && first.name !== '首页') {
+        matched = [{ path: '/', meta: { title: '首页' }}].concat(matched)
       }
       this.levelList = matched
     },
