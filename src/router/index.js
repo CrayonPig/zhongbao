@@ -48,17 +48,17 @@ export const constantRouterMap = [
       {
         path: 'newRoad',
         name: '新增道路',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/assignmentPublish/newRoad'),
         meta: { title: '新增道路', icon: 'table' }
       },
       {
         path: 'updateRoad',
         name: '更新道路',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/assignmentPublish/updateRoad'),
         meta: { title: '更新道路', icon: 'tree' }
       },
       {
-        path: 'updateRoad',
+        path: 'refineRoad',
         name: '精细化道路',
         component: () => import('@/views/table/index'),
         meta: { title: '精细化道路', icon: 'tree' }
