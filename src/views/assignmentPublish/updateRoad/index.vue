@@ -39,18 +39,18 @@
         <div class="edit_group">
           <div class="edit_label">任务状态</div>
           <el-checkbox-group v-model="filter.taskState" class="edit_collapse">
-            <el-checkbox label="未发布">未发布</el-checkbox>
-            <el-checkbox label="挂起">挂起</el-checkbox>
-            <el-checkbox label="已领取">已领取</el-checkbox>
-            <el-checkbox label="采集中">采集中</el-checkbox>
-            <el-checkbox label="上传中">上传中</el-checkbox>
-            <el-checkbox label="已提交（审核中）">已提交（审核中）</el-checkbox>
-            <el-checkbox label="合格（未支付）">合格（未支付）</el-checkbox>
-            <el-checkbox label="不合格">不合格</el-checkbox>
-            <el-checkbox label="已支付">已支付</el-checkbox>
-            <el-checkbox label="用户取消">用户取消</el-checkbox>
-            <el-checkbox label="过期">过期</el-checkbox>
-            <el-checkbox label="运营释放">运营释放</el-checkbox>   <!-- label改成相应key值， filter.taskState可以自动获取-->
+            <el-checkbox label="未发布" class="checkbox">未发布</el-checkbox>
+            <el-checkbox label="挂起" class="checkbox">挂起</el-checkbox>
+            <el-checkbox label="已领取" class="checkbox">已领取</el-checkbox>
+            <el-checkbox label="采集中" class="checkbox">采集中</el-checkbox>
+            <el-checkbox label="上传中" class="checkbox">上传中</el-checkbox>
+            <el-checkbox label="已提交（审核中）" class="checkbox">已提交（审核中）</el-checkbox>
+            <el-checkbox label="合格（未支付）" class="checkbox">合格（未支付）</el-checkbox>
+            <el-checkbox label="不合格" class="checkbox">不合格</el-checkbox>
+            <el-checkbox label="已支付" class="checkbox">已支付</el-checkbox>
+            <el-checkbox label="用户取消" class="checkbox">用户取消</el-checkbox>
+            <el-checkbox label="过期" class="checkbox">过期</el-checkbox>
+            <el-checkbox label="运营释放" class="checkbox">运营释放</el-checkbox>   <!-- label改成相应key值， filter.taskState可以自动获取-->
           </el-checkbox-group>
         </div>
         <div class="edit_group">
@@ -391,6 +391,10 @@ export default {
       // float: left;
       .edit_creat{
         margin-top: 10px;
+      }
+      .checkbox{
+        margin: 0;
+        width: 150px;
       }
     }
   }
