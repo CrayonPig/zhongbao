@@ -1,27 +1,13 @@
-import request from '@/utils/request'
+import ajax from '@/utils/request'
 
-export function login(username, password) {
-  return request({
-    url: '/user/login',
-    method: 'post',
-    data: {
-      username,
-      password
-    }
-  })
-}
+export const logoOut = data => ajax({
+  url: `/ishare_manage_platform/api/v1.0/logout/`,
+  method: 'get',
+  params: data
+})
 
-export function getInfo(token) {
-  return request({
-    url: '/user/info',
-    method: 'get'
-    // params: { token }
-  })
-}
-
-export function logout() {
-  return request({
-    url: '/user/logout',
-    method: 'post'
-  })
-}
+export const getUserType = data => ajax({
+  url: `/ishare_manage_platform/api/v1.0/login/`,
+  method: 'get',
+  params: data
+})

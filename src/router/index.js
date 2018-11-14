@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
@@ -8,7 +9,6 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '../views/layout/Layout'
-
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
 * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
@@ -21,22 +21,8 @@ import Layout from '../views/layout/Layout'
     icon: 'svg-name'             the icon show in the sidebar,
   }
 **/
-export const constantRouterMap = [
-  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
-  { path: '/404', component: () => import('@/views/404'), hidden: true },
 
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/index',
-    name: '首页',
-    hidden: true,
-    children: [{
-      path: '/index',
-      component: () => import('@/views/dashboard/index')
-    }]
-  },
-
+const constantRouterMap = [
   {
     path: '/assignmentPublish',
     component: Layout,
@@ -82,7 +68,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/assignmentAudit/new',
     name: '任务审核',
-    roles: 110,
+    roles: 120,
     meta: { title: '任务审核', icon: 'example' },
     children: [
       {
@@ -180,6 +166,7 @@ export const constantRouterMap = [
   {
     path: '/auditResult',
     component: Layout,
+    roles: 110,
     children: [
       {
         path: 'index',
@@ -192,6 +179,7 @@ export const constantRouterMap = [
   {
     path: '/userManagement',
     component: Layout,
+    roles: 150,
     children: [
       {
         path: 'index',
@@ -204,6 +192,7 @@ export const constantRouterMap = [
   {
     path: '/activityOperations',
     component: Layout,
+    roles: 160,
     redirect: '/activityOperations/message',
     name: '活动运营',
     meta: {
@@ -260,6 +249,7 @@ export const constantRouterMap = [
   {
     path: '/userFeedback',
     component: Layout,
+    roles: 130,
     children: [
       {
         path: 'index',
@@ -274,7 +264,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/paymentConfirmation/newPlanPay',
     name: '支付确认',
-    roles: 110,
+    roles: 140,
     meta: { title: '支付确认', icon: 'example' },
     children: [
       {
@@ -306,6 +296,7 @@ export const constantRouterMap = [
   {
     path: '/billQuery',
     component: Layout,
+    roles: 140,
     children: [
       {
         path: 'index',
@@ -318,6 +309,7 @@ export const constantRouterMap = [
   {
     path: '/inputAmount',
     component: Layout,
+    roles: 140,
     children: [
       {
         path: 'index',
@@ -332,6 +324,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/statistics/new',
     name: '统计导出',
+    roles: 170,
     meta: { title: '统计导出', icon: 'example' },
     children: [
       {
@@ -379,7 +372,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/imgIdentification/sorting',
     name: '图像识别',
-    roles: 190,
+    roles: 400,
     meta: { title: '图像识别', icon: 'example' },
     children: [
       {
@@ -453,16 +446,48 @@ export const constantRouterMap = [
       {
         path: 'equipment',
         name: '设备位置',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/collect/equipment'),
         meta: { title: '设备位置', icon: 'tree' }
       }
     ]
-  },
-  { path: '*', redirect: '/404', hidden: true }
+  }
 ]
 
+export const userRolesRoute = [
+  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
+  { path: '/404', component: () => import('@/views/404'), hidden: true },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/index',
+    name: '首页',
+    hidden: true,
+    children: [{
+      path: '/index',
+      component: () => import('@/views/index/index')
+    }]
+  },
+  { path: '*', redirect: '/404', hidden: true }
+] // 所有人都拥有的权限
+
+// const userRoles = store.state.user.roles // 获取用户权限  vuex
+// 循环判断是否拥有此项权限
+// constantRouterMap.map(a => (
+//   userRoles.map(b => {
+//     if (a.roles === b || a.roles - 1 === b) {
+//       if (constantRouterMap.indexOf(a) === -1) {
+//         userRolesRoute.push(a)
+//       }
+//     }
+//   })
+// ))
+
+constantRouterMap.map(item => {
+  userRolesRoute.push(item)
+})// 测试把所有权限打开
+
 export default new Router({
-  // mode: 'history', //后端支持可开
+  mode: 'history', // 后端支持可开
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap
+  routes: userRolesRoute
 })

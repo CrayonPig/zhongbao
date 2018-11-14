@@ -3,9 +3,11 @@ import qs from 'qs'
 import { Message } from 'element-ui'
 // import store from '../store'
 // import { getToken } from '@/utils/auth'
-
+const isHostName = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+const baseURL = isHostName ? 'http://zb_test.sparta.html5.qq.com' : ''
 // 创建axios实例
 const instince = axios.create({
+  baseURL,
   timeout: 20000,
   withCredentials: true
 })
